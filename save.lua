@@ -66,13 +66,11 @@ function saveInstanceTree(instance)
 	local className = instance.ClassName
 	local classData = properties[className]
 
-	assert(classData, "Couldn't find class with ClassName: ".. className)
-	if not classData then return end
-
-	local savedProperties = {}
-	local visitedClasses = {}
-
-	gatherProperties(instance, classData, savedProperties, visitedClasses)
+	if classData then
+		local savedProperties = {}
+		local visitedClasses = {}
+		gatherProperties(instance, classData, savedProperties, visitedClasses)	
+	end
 
 	local savedChildren = {}
 
