@@ -4,6 +4,11 @@
     "Inherits": null
   },
 
+ "Folder": {
+    "Properties": null,
+    "Inherits": null
+  },
+
   "GuiBase2d": {
     "Properties": ["AbsolutePosition", "AbsoluteRotation", "AbsoluteSize", "AutoLocalize", "RootLocalizationTable"],
     "Inherits": ["Instance"]
