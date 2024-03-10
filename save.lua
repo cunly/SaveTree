@@ -91,7 +91,7 @@ function onRequest(instance)
 	local savedInstanceTree = saveInstanceTree(instance)
 	local encodedInstanceTree = Https:JSONEncode(savedInstanceTree)
 	
-	writefile("save.txt", encodedInstanceTree) 
+	writefile("SaveTree.txt", encodedInstanceTree) 
 end
 
 return onRequest(...)
