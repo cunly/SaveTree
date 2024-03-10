@@ -6,7 +6,7 @@
 
  "Folder": {
     "Properties": null,
-    "Inherits": null
+    "Inherits": ["Instance"]
   },
 
   "GuiBase2d": {
