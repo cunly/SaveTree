@@ -18,7 +18,7 @@ local conversionList = {
 		local r, g, b = value:match("([^,]+),([^,]+),([^,]+)")
 		return Color3.new(tonumber(r), tonumber(g), tonumber(b))
 	end,
-		
+
 	UDim2 = function(value)
 		local xScale, xOffset, yScale, yOffset = value:match("{(%-?%d+%.?%d*), (%-?%d+%.?%d*)}, {(%-?%d+%.?%d*), (%-?%d+%.?%d*)}")
 		return UDim2.new(tonumber(xScale), tonumber(xOffset), tonumber(yScale), tonumber(yOffset))
@@ -83,7 +83,7 @@ local conversionList = {
 		local scale, offset = value:match("([%-]?%d+%.?%d*),%s*([%-]?%d+%.?%d*)")
 		return UDim.new(tonumber(scale), tonumber(offset))
 	end,
-	
+
 	Rect = function(value)
 		local old = value
 		local minX, minY, maxX, maxY = value:match("(%d+%.?%d*), (%d+%.?%d*), (%d+%.?%d*), (%d+%.?%d*)")
@@ -94,7 +94,7 @@ local conversionList = {
 
 function getConvertedValue(propertyType, propertyValue)
 	local toType = conversionList[propertyType]
-	
+
 	if toType 	then  
 		return toType(propertyValue)
 	else
@@ -117,9 +117,9 @@ end
 function setProperties(savedInstance, newInstance)
 	for name, property in pairs(savedInstance.Properties) do
 		if name == "Parent" then continue end
-		
+
 		local value
-		
+
 		if (property.type == "EnumItem") then
 			value = getConvertedEnum(property.value)
 		else
@@ -129,7 +129,7 @@ function setProperties(savedInstance, newInstance)
 		pcall(function()
 			newInstance[name] = value
 		end)
-	
+
 	end
 end
 
@@ -139,7 +139,9 @@ function buildInstanceTree(savedInstance)
 
 	setProperties(savedInstance, newInstance)
 
-	for i, savedChild in ipairs(savedInstance.Children) do
+	print(savedInstance.Children)
+
+	for i, savedChild in pairs(savedInstance.Children) do
 		local newChild = buildInstanceTree(savedChild)
 		newChild.Parent = newInstance
 	end
@@ -147,11 +149,12 @@ function buildInstanceTree(savedInstance)
 	return newInstance
 end
 
-function onRequest(json)
+function onRequest(url)
+	local json = Https:GetAsync(url)
 	local decodedJson = Https:JSONDecode(json)
 	local instanceTree = buildInstanceTree(decodedJson)
-	
-	instanceTree.Parent = game.Players.Vumly.PlayerGui
+
+	instanceTree.Parent = game.StarterGui
 end
 
 return onRequest(...)
