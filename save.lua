@@ -66,11 +66,10 @@ function saveInstanceTree(instance)
 	local className = instance.ClassName
 	local classData = properties[className]
 
-	if classData then
-		local savedProperties = {}
-		local visitedClasses = {}
-		gatherProperties(instance, classData, savedProperties, visitedClasses)	
-	end
+	
+	local savedProperties = {}
+	local visitedClasses = {}
+	gatherProperties(instance, classData, savedProperties, visitedClasses)
 
 	local savedChildren = {}
 
